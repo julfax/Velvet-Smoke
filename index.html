@@ -1,13 +1,240 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Velvet Smoke Shop</title>
+    <meta name="description" content="Velvet Smoke Shop: catálogo de referencia de accesorios y artículos para adultos.">
+    <title>Velvet Smoke | Smoke Shop</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
-    <h1>Welcome to Velvet Smoke</h1>
+
+    <!-- ENCABEZADO -->
+    <header class="header">
+        <nav class="navbar">
+            <a href="#inicio" class="logo">VELVET<span>SMOKE</span></a>
+
+            <ul class="nav-links">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#categorias">Categorías</a></li>
+                <li><a href="#catalogo">Catálogo</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <button type="button" id="wishlistToggle" class="nav-icon" aria-label="Ver favoritos">
+                    ♡ <span id="wishlistCount">0</span>
+                </button>
+
+                <button type="button" id="cartToggle" class="nav-icon" aria-label="Ver carrito">
+                    🛒 <span id="cartCount">0</span>
+                </button>
+
+                <a href="#catalogo" class="nav-button">Explorar tienda</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+
+        <!-- PORTADA -->
+        <section class="hero" id="inicio">
+            <div class="hero-content">
+                <p class="subtitle">BIENVENIDO A VELVET SMOKE</p>
+
+                <h1>ESTILO QUE<br>MARCA LA DIFERENCIA.</h1>
+
+                <p class="hero-description">
+                    Descubre nuestra colección de accesorios
+                    y artículos seleccionados.
+                </p>
+
+                <a href="#catalogo" class="main-button">
+                    EXPLORAR CATÁLOGO
+                </a>
+            </div>
+
+            <div class="hero-visual">
+                <img src="images/hero.jpg"
+                     alt="Composición visual de Velvet Smoke"
+                     onerror="this.style.display='none'">
+            </div>
+        </section>
+
+        <!-- CATEGORÍAS -->
+        <section class="categories" id="categorias">
+            <div class="section-heading">
+                <p class="subtitle">DESCUBRE NUESTRA SELECCIÓN</p>
+                <h2>NUESTRAS CATEGORÍAS</h2>
+            </div>
+
+            <div class="category-grid">
+
+                <article class="category-card">
+                    <img src="images/accesorios.jpg"
+                         alt="Accesorios de colección"
+                         onerror="this.style.display='none'">
+                    <div class="category-content">
+                        <h3>Accesorios</h3>
+                        <p>Explora nuestra selección.</p>
+                    </div>
+                </article>
+
+                <article class="category-card">
+                    <img src="images/colecciones.jpg"
+                         alt="Artículos de colección"
+                         onerror="this.style.display='none'">
+                    <div class="category-content">
+                        <h3>Colecciones</h3>
+                        <p>Conoce nuestros artículos.</p>
+                    </div>
+                </article>
+
+                <article class="category-card">
+                    <img src="images/merchandising.jpg"
+                         alt="Merchandising de Velvet Smoke"
+                         onerror="this.style.display='none'">
+                    <div class="category-content">
+                        <h3>Merchandising</h3>
+                        <p>Descubre nuestra identidad.</p>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- CATÁLOGO -->
+        <section class="catalog" id="catalogo">
+            <div class="section-heading">
+                <p class="subtitle">VELVET SMOKE SHOP</p>
+                <h2>NUESTRO CATÁLOGO</h2>
+            </div>
+
+            <div class="product-grid">
+
+                <article class="product-card" data-product-id="1">
+                    <div class="product-image">
+                        <img src="images/producto-01.jpg"
+                             alt="Imagen de referencia de dispositivo"
+                             onerror="this.style.display='none'">
+
+                        <button type="button"
+                                class="favorite-button"
+                                aria-label="Agregar a favoritos"
+                                aria-pressed="false">♡</button>
+                    </div>
+
+                    <div class="product-info">
+                        <h3>Vape Pod Pro</h3>
+                        <p>Dispositivo de referencia para el catálogo.</p>
+                        <p class="product-price">$1,199 MXN</p>
+
+                        <div class="product-actions">
+                            <div class="quantity-control">
+                                <button type="button" class="quantity-minus" aria-label="Disminuir cantidad">−</button>
+                                <span class="quantity-value">1</span>
+                                <button type="button" class="quantity-plus" aria-label="Aumentar cantidad">+</button>
+                            </div>
+
+                            <button type="button" class="add-cart-button">
+                                🛒 Agregar al carrito
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="product-card" data-product-id="2">
+                    <div class="product-image">
+                        <img src="images/producto-02.jpg"
+                             alt="Imagen de referencia de pieza de vidrio"
+                             onerror="this.style.display='none'">
+
+                        <button type="button"
+                                class="favorite-button"
+                                aria-label="Agregar a favoritos"
+                                aria-pressed="false">♡</button>
+                    </div>
+
+                    <div class="product-info">
+                        <h3>Bong Glass Premium</h3>
+                        <p>Pieza de vidrio de referencia para colección.</p>
+                        <p class="product-price">$2,499 MXN</p>
+
+                        <div class="product-actions">
+                            <div class="quantity-control">
+                                <button type="button" class="quantity-minus" aria-label="Disminuir cantidad">−</button>
+                                <span class="quantity-value">1</span>
+                                <button type="button" class="quantity-plus" aria-label="Aumentar cantidad">+</button>
+                            </div>
+
+                            <button type="button" class="add-cart-button">
+                                🛒 Agregar al carrito
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- PANELES DE FAVORITOS Y CARRITO -->
+        <section class="shopping-panels" id="shoppingPanels">
+
+            <div class="shopping-panel" id="wishlistPanel" hidden>
+                <div class="section-heading">
+                    <p class="subtitle">TUS PREFERENCIAS</p>
+                    <h2>MI LISTA DE DESEOS</h2>
+                </div>
+                <div id="wishlistItems"></div>
+            </div>
+
+            <div class="shopping-panel" id="cartPanel" hidden>
+                <div class="section-heading">
+                    <p class="subtitle">TU SELECCIÓN</p>
+                    <h2>CARRITO DE DEMOSTRACIÓN</h2>
+                </div>
+                <div id="cartItems"></div>
+                <p id="cartTotal" class="cart-total">Total: $0 MXN</p>
+            </div>
+
+        </section>
+
+        <!-- CONTACTO -->
+        <section class="contact" id="contacto">
+            <div class="section-heading">
+                <p class="subtitle">ESTAMOS PARA AYUDARTE</p>
+                <h2>CONTÁCTANOS</h2>
+            </div>
+
+            <form class="contact-form" id="contactForm">
+                <label for="name">Nombre</label>
+                <input type="text" id="name" name="name"
+                       placeholder="Tu nombre" required>
+
+                <label for="email">Correo electrónico</label>
+                <input type="email" id="email" name="email"
+                       placeholder="tucorreo@ejemplo.com" required>
+
+                <label for="message">Mensaje</label>
+                <textarea id="message" name="message"
+                          placeholder="Escribe tu mensaje" required></textarea>
+
+                <button type="submit" class="main-button">
+                    ENVIAR MENSAJE
+                </button>
+            </form>
+        </section>
+
+    </main>
+
+    <!-- PIE DE PÁGINA -->
+    <footer class="footer">
+        <p>© 2026 VELVET SMOKE. Todos los derechos reservados.</p>
+        <p>Catálogo demostrativo. Acceso exclusivo para mayores de edad.</p>
+    </footer>
+
     <script src="app.js"></script>
 </body>
 </html>
