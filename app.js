@@ -143,10 +143,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const wishlistCount = $("wishlistCount");
     const cartToggle = $("cartToggle");
     const wishlistToggle = $("wishlistToggle");
+    const activityToggle = $("activityToggle");
+    const activityCount = $("activityCount");
 
     const overlay = $("overlay");
     const cartDrawer = $("cartDrawer");
     const wishlistDrawer = $("wishlistDrawer");
+    const activityDrawer = $("activityDrawer");
     const cartItems = $("cartItems");
     const wishlistItems = $("wishlistItems");
     const cartTotal = $("cartTotal");
@@ -191,6 +194,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         activityEmpty.hidden = rows.length > 0;
+        activityCount.textContent = rows.length;
     }
 
     $("clearActivity").addEventListener("click", () => {
@@ -276,7 +280,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // =====================================
 
     function closeDrawers() {
-        [cartDrawer, wishlistDrawer].forEach(drawer => {
+        [cartDrawer, wishlistDrawer, activityDrawer].forEach(drawer => {
             drawer.classList.remove("open");
             drawer.setAttribute("aria-hidden", "true");
         });
@@ -290,8 +294,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (drawer === cartDrawer) {
             renderCart();
-        } else {
+        } else if (drawer === wishlistDrawer) {
             renderWishlist();
+        } else {
+            renderActivity();
         }
 
         drawer.classList.add("open");
@@ -303,6 +309,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     cartToggle.addEventListener("click", () => openDrawer(cartDrawer));
     wishlistToggle.addEventListener("click", () => openDrawer(wishlistDrawer));
+    activityToggle.addEventListener("click", () => openDrawer(activityDrawer));
     overlay.addEventListener("click", closeDrawers);
 
     document.querySelectorAll("[data-close]").forEach(button => {

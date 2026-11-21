@@ -45,7 +45,6 @@
                 <li><a href="#categorias">Categorías</a></li>
                 <li><a href="#catalogo">Catálogo</a></li>
                 <li><a href="#contacto">Contacto</a></li>
-                <li><a href="#actividad">Actividad</a></li>
             </ul>
 
             <div class="nav-actions">
@@ -55,6 +54,10 @@
 
                 <button type="button" id="cartToggle" class="nav-icon" aria-label="Ver carrito">
                     🛒 <span id="cartCount">0</span>
+                </button>
+
+                <button type="button" id="activityToggle" class="nav-icon" aria-label="Ver registro de actividad">
+                    📋 <span id="activityCount">0</span>
                 </button>
 
                 <a href="#catalogo" class="nav-button">Explorar tienda</a>
@@ -235,34 +238,6 @@
             </form>
         </section>
 
-        <!-- REGISTRO DE ACTIVIDAD -->
-        <section class="activity-section" id="actividad">
-            <div class="section-heading">
-                <p class="subtitle">PANEL DE DEMOSTRACIÓN</p>
-                <h2>REGISTRO DE ACTIVIDAD</h2>
-            </div>
-
-            <div class="table-container">
-                <table class="activity-table">
-                    <thead>
-                        <tr>
-                            <th>Fecha</th>
-                            <th>Tipo de consulta</th>
-                            <th>Elemento</th>
-                            <th>Estado</th>
-                        </tr>
-                    </thead>
-                    <tbody id="activityTable"></tbody>
-                </table>
-            </div>
-
-            <p id="activityEmpty" class="empty-message">Aún no hay actividad registrada.</p>
-
-            <div class="activity-actions">
-                <button type="button" id="clearActivity" class="link-button">Limpiar registro</button>
-            </div>
-        </section>
-
     </main>
 
     <!-- PIE DE PÁGINA -->
@@ -296,6 +271,36 @@
             <p id="cartTotal" class="cart-total">Total: $0 MXN</p>
             <button type="button" id="checkoutButton" class="main-button" disabled>FINALIZAR COMPRA</button>
             <button type="button" id="clearCart" class="link-button" hidden>Vaciar carrito</button>
+        </div>
+    </aside>
+
+    <!-- MENÚ LATERAL: REGISTRO DE ACTIVIDAD -->
+    <aside class="drawer drawer-wide" id="activityDrawer" aria-hidden="true" aria-labelledby="activityTitle">
+        <div class="drawer-header">
+            <h2 id="activityTitle">📋 REGISTRO DE ACTIVIDAD</h2>
+            <button type="button" class="icon-close" data-close aria-label="Cerrar registro de actividad">✕</button>
+        </div>
+
+        <div class="drawer-body">
+            <div class="table-container">
+                <table class="activity-table">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Tipo de consulta</th>
+                            <th>Elemento</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody id="activityTable"></tbody>
+                </table>
+            </div>
+
+            <p id="activityEmpty" class="empty-message">Aún no hay actividad registrada.</p>
+        </div>
+
+        <div class="drawer-footer">
+            <button type="button" id="clearActivity" class="link-button">Limpiar registro</button>
         </div>
     </aside>
 
