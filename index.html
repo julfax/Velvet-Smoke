@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -9,7 +8,32 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 
-<body>
+<body class="age-locked">
+
+    <!-- VERIFICACIÓN DE EDAD -->
+    <div class="age-gate" id="ageGate" role="dialog" aria-modal="true" aria-labelledby="ageTitle">
+        <div class="age-box">
+            <div class="age-logo">VELVET<span>SMOKE</span></div>
+
+            <div id="ageQuestion">
+                <h2 id="ageTitle">¿ERES MAYOR DE EDAD?</h2>
+                <p>Este sitio es exclusivo para mayores de 18 años. Confirma tu edad para continuar.</p>
+
+                <div class="age-actions">
+                    <button type="button" id="ageYes" class="main-button">SÍ, SOY MAYOR DE 18</button>
+                    <button type="button" id="ageNo" class="secondary-button">NO, SOY MENOR</button>
+                </div>
+            </div>
+
+            <div id="ageDenied" hidden>
+                <h2>ACCESO DENEGADO</h2>
+                <p>Lo sentimos, no puedes acceder a este sitio. Su contenido es exclusivo para mayores de 18 años.</p>
+                <p>Te estamos redirigiendo...</p>
+            </div>
+
+            <noscript><p class="form-error">Activa JavaScript para confirmar tu edad y acceder.</p></noscript>
+        </div>
+    </div>
 
     <!-- ENCABEZADO -->
     <header class="header">
@@ -21,6 +45,7 @@
                 <li><a href="#categorias">Categorías</a></li>
                 <li><a href="#catalogo">Catálogo</a></li>
                 <li><a href="#contacto">Contacto</a></li>
+                <li><a href="#actividad">Actividad</a></li>
             </ul>
 
             <div class="nav-actions">
@@ -72,33 +97,36 @@
 
             <div class="category-grid">
 
-                <article class="category-card">
+                <article class="category-card coming-soon" aria-disabled="true">
                     <img src="images/accesorios.jpg"
                          alt="Accesorios de colección"
                          onerror="this.style.display='none'">
+                    <span class="coming-badge">PRÓXIMAMENTE</span>
                     <div class="category-content">
                         <h3>Accesorios</h3>
-                        <p>Explora nuestra selección.</p>
+                        <p>Muy pronto disponible.</p>
                     </div>
                 </article>
 
-                <article class="category-card">
+                <article class="category-card coming-soon" aria-disabled="true">
                     <img src="images/colecciones.jpg"
                          alt="Artículos de colección"
                          onerror="this.style.display='none'">
+                    <span class="coming-badge">PRÓXIMAMENTE</span>
                     <div class="category-content">
                         <h3>Colecciones</h3>
-                        <p>Conoce nuestros artículos.</p>
+                        <p>Muy pronto disponible.</p>
                     </div>
                 </article>
 
-                <article class="category-card">
+                <article class="category-card coming-soon" aria-disabled="true">
                     <img src="images/merchandising.jpg"
                          alt="Merchandising de Velvet Smoke"
                          onerror="this.style.display='none'">
+                    <span class="coming-badge">PRÓXIMAMENTE</span>
                     <div class="category-content">
                         <h3>Merchandising</h3>
-                        <p>Descubre nuestra identidad.</p>
+                        <p>Muy pronto disponible.</p>
                     </div>
                 </article>
 
@@ -179,28 +207,6 @@
             </div>
         </section>
 
-        <!-- PANELES DE FAVORITOS Y CARRITO -->
-        <section class="shopping-panels" id="shoppingPanels">
-
-            <div class="shopping-panel" id="wishlistPanel" hidden>
-                <div class="section-heading">
-                    <p class="subtitle">TUS PREFERENCIAS</p>
-                    <h2>MI LISTA DE DESEOS</h2>
-                </div>
-                <div id="wishlistItems"></div>
-            </div>
-
-            <div class="shopping-panel" id="cartPanel" hidden>
-                <div class="section-heading">
-                    <p class="subtitle">TU SELECCIÓN</p>
-                    <h2>CARRITO DE DEMOSTRACIÓN</h2>
-                </div>
-                <div id="cartItems"></div>
-                <p id="cartTotal" class="cart-total">Total: $0 MXN</p>
-            </div>
-
-        </section>
-
         <!-- CONTACTO -->
         <section class="contact" id="contacto">
             <div class="section-heading">
@@ -208,7 +214,7 @@
                 <h2>CONTÁCTANOS</h2>
             </div>
 
-            <form class="contact-form" id="contactForm">
+            <form class="contact-form" id="contactForm" novalidate>
                 <label for="name">Nombre</label>
                 <input type="text" id="name" name="name"
                        placeholder="Tu nombre" required>
@@ -224,7 +230,37 @@
                 <button type="submit" class="main-button">
                     ENVIAR MENSAJE
                 </button>
+
+                <p id="formFeedback" role="status" aria-live="polite"></p>
             </form>
+        </section>
+
+        <!-- REGISTRO DE ACTIVIDAD -->
+        <section class="activity-section" id="actividad">
+            <div class="section-heading">
+                <p class="subtitle">PANEL DE DEMOSTRACIÓN</p>
+                <h2>REGISTRO DE ACTIVIDAD</h2>
+            </div>
+
+            <div class="table-container">
+                <table class="activity-table">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Tipo de consulta</th>
+                            <th>Elemento</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody id="activityTable"></tbody>
+                </table>
+            </div>
+
+            <p id="activityEmpty" class="empty-message">Aún no hay actividad registrada.</p>
+
+            <div class="activity-actions">
+                <button type="button" id="clearActivity" class="link-button">Limpiar registro</button>
+            </div>
         </section>
 
     </main>
@@ -234,6 +270,131 @@
         <p>© 2026 VELVET SMOKE. Todos los derechos reservados.</p>
         <p>Catálogo demostrativo. Acceso exclusivo para mayores de edad.</p>
     </footer>
+
+    <!-- FONDO OSCURO PARA LOS MENÚS LATERALES -->
+    <div class="overlay" id="overlay" hidden></div>
+
+    <!-- MENÚ LATERAL: FAVORITOS -->
+    <aside class="drawer" id="wishlistDrawer" aria-hidden="true" aria-labelledby="wishlistTitle">
+        <div class="drawer-header">
+            <h2 id="wishlistTitle">♡ MIS FAVORITOS</h2>
+            <button type="button" class="icon-close" data-close aria-label="Cerrar favoritos">✕</button>
+        </div>
+        <div class="drawer-body" id="wishlistItems"></div>
+    </aside>
+
+    <!-- MENÚ LATERAL: CARRITO -->
+    <aside class="drawer" id="cartDrawer" aria-hidden="true" aria-labelledby="cartTitle">
+        <div class="drawer-header">
+            <h2 id="cartTitle">🛒 MI CARRITO</h2>
+            <button type="button" class="icon-close" data-close aria-label="Cerrar carrito">✕</button>
+        </div>
+
+        <div class="drawer-body" id="cartItems"></div>
+
+        <div class="drawer-footer">
+            <p id="cartTotal" class="cart-total">Total: $0 MXN</p>
+            <button type="button" id="checkoutButton" class="main-button" disabled>FINALIZAR COMPRA</button>
+            <button type="button" id="clearCart" class="link-button" hidden>Vaciar carrito</button>
+        </div>
+    </aside>
+
+    <!-- VENTANA DE PAGO -->
+    <div class="modal" id="checkoutModal" role="dialog" aria-modal="true" aria-labelledby="checkoutTitle" hidden>
+        <div class="modal-box">
+            <button type="button" class="icon-close modal-close" data-close-checkout aria-label="Cerrar ventana de pago">✕</button>
+
+            <form id="checkoutForm" class="checkout-form" novalidate>
+                <div class="section-heading">
+                    <p class="subtitle">PAGO DE DEMOSTRACIÓN</p>
+                    <h2 id="checkoutTitle">FINALIZAR COMPRA</h2>
+                </div>
+
+                <div class="checkout-summary" id="checkoutSummary"></div>
+
+                <h3 class="form-title">1. Datos del cliente</h3>
+                <div class="form-grid">
+                    <div class="field full">
+                        <label for="coEmail">Correo electrónico</label>
+                        <input type="email" id="coEmail" autocomplete="email" placeholder="tucorreo@ejemplo.com">
+                    </div>
+                    <div class="field full">
+                        <label for="coName">Nombre completo</label>
+                        <input type="text" id="coName" autocomplete="name" placeholder="Nombre y apellidos">
+                    </div>
+                    <div class="field">
+                        <label for="coBirth">Fecha de nacimiento</label>
+                        <input type="date" id="coBirth" autocomplete="bday">
+                    </div>
+                    <div class="field">
+                        <label for="coPhone">Teléfono (10 dígitos)</label>
+                        <input type="tel" id="coPhone" inputmode="numeric" maxlength="10" autocomplete="tel-national">
+                    </div>
+                    <div class="field full">
+                        <label for="coStreet">Calle y número</label>
+                        <input type="text" id="coStreet" autocomplete="address-line1">
+                    </div>
+                    <div class="field">
+                        <label for="coColony">Colonia</label>
+                        <input type="text" id="coColony" autocomplete="address-line2">
+                    </div>
+                    <div class="field">
+                        <label for="coCity">Ciudad</label>
+                        <input type="text" id="coCity" autocomplete="address-level2">
+                    </div>
+                    <div class="field">
+                        <label for="coState">Estado</label>
+                        <input type="text" id="coState" autocomplete="address-level1">
+                    </div>
+                    <div class="field">
+                        <label for="coZip">Código postal</label>
+                        <input type="text" id="coZip" inputmode="numeric" maxlength="5" autocomplete="postal-code">
+                    </div>
+                </div>
+
+                <h3 class="form-title">2. Datos de pago</h3>
+                <div class="form-grid">
+                    <div class="field full" id="savedCardBox" hidden>
+                        <label for="coSavedCard">Pagar con</label>
+                        <select id="coSavedCard"></select>
+                        <button type="button" id="deleteCardButton" class="link-button">Eliminar esta tarjeta guardada</button>
+                    </div>
+
+                    <div class="field full new-card">
+                        <label for="coHolder">Nombre del titular</label>
+                        <input type="text" id="coHolder" autocomplete="cc-name" placeholder="Como aparece en la tarjeta">
+                    </div>
+                    <div class="field full new-card">
+                        <label for="coCardNumber">Número de tarjeta</label>
+                        <input type="text" id="coCardNumber" inputmode="numeric" autocomplete="cc-number" placeholder="0000 0000 0000 0000" maxlength="23">
+                    </div>
+                    <div class="field new-card">
+                        <label for="coExpiry">Vencimiento (MM/AA)</label>
+                        <input type="text" id="coExpiry" inputmode="numeric" autocomplete="cc-exp" placeholder="MM/AA" maxlength="7">
+                    </div>
+                    <div class="field">
+                        <label for="coCvv">CVV</label>
+                        <input type="password" id="coCvv" inputmode="numeric" autocomplete="cc-csc" placeholder="•••" maxlength="4">
+                    </div>
+
+                    <label class="checkbox-row full new-card">
+                        <input type="checkbox" id="coSave">
+                        <span>Guardar esta tarjeta para futuras compras. Solo se guardan la marca, los últimos 4 dígitos, el titular y el vencimiento. Nunca el número completo ni el CVV.</span>
+                    </label>
+                </div>
+
+                <p id="checkoutError" class="form-error" role="alert"></p>
+
+                <button type="submit" class="main-button">CONFIRMAR PAGO</button>
+            </form>
+
+            <div id="checkoutSuccess" class="checkout-success" hidden>
+                <h2>¡COMPRA REGISTRADA!</h2>
+                <p id="successMessage"></p>
+                <button type="button" class="main-button" data-close-checkout>SEGUIR COMPRANDO</button>
+            </div>
+        </div>
+    </div>
 
     <script src="app.js"></script>
 </body>
