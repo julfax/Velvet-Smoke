@@ -692,3 +692,430 @@ textarea:focus-visible {
         flex-direction: column;
     }
 }
+
+
+/* =========================================
+   ===== NUEVO (feature/logic) =====
+   Pega todo este bloque al final de styles.css
+========================================= */
+
+/* El atributo hidden siempre debe ocultar */
+[hidden] {
+    display: none !important;
+}
+
+.no-scroll {
+    overflow: hidden;
+}
+
+.link-button {
+    background: none;
+    border: none;
+    color: var(--purple-light);
+    text-decoration: underline;
+    padding: 6px 0;
+    font-size: 14px;
+}
+
+.link-button:hover {
+    color: var(--text);
+}
+
+.form-error {
+    color: #ff8a9a;
+    font-weight: bold;
+    min-height: 1.4em;
+}
+
+.main-button:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.icon-close {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--purple-light);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.icon-close:hover {
+    background: var(--purple);
+    color: #101010;
+    border-color: var(--purple);
+}
+
+/* ---------- Verificación de edad ---------- */
+
+body.age-locked > :not(#ageGate):not(script) {
+    display: none !important;
+}
+
+.age-gate {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: radial-gradient(circle at 50% 30%, #39234b 0%, #101010 70%);
+}
+
+.age-box {
+    width: 100%;
+    max-width: 460px;
+    text-align: center;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 38px 30px;
+}
+
+.age-logo {
+    font-size: 28px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin-bottom: 22px;
+}
+
+.age-logo span {
+    color: var(--purple);
+    margin-left: 5px;
+}
+
+.age-box h2 {
+    font-size: 22px;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+}
+
+.age-box p {
+    color: var(--muted);
+    margin-bottom: 18px;
+}
+
+.age-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.age-actions .main-button,
+.age-actions .secondary-button {
+    width: 100%;
+    padding: 14px 22px;
+}
+
+.secondary-button {
+    display: inline-block;
+    background: transparent;
+    color: var(--purple-light);
+    border: 1px solid var(--purple);
+    border-radius: 6px;
+    font-weight: bold;
+    text-align: center;
+    transition: 0.3s;
+}
+
+.secondary-button:hover {
+    background: #30243b;
+    transform: translateY(-2px);
+}
+
+/* ---------- Menús laterales (carrito y favoritos) ---------- */
+
+.overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 900;
+    background: rgba(0, 0, 0, 0.65);
+}
+
+.drawer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+    width: min(430px, 100%);
+    display: flex;
+    flex-direction: column;
+    background: var(--surface);
+    border-left: 1px solid var(--border);
+    transform: translateX(100%);
+    visibility: hidden;
+    transition: transform 0.3s ease, visibility 0s linear 0.3s;
+}
+
+.drawer.open {
+    transform: translateX(0);
+    visibility: visible;
+    transition: transform 0.3s ease, visibility 0s;
+}
+
+.drawer-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 22px;
+    border-bottom: 1px solid var(--border);
+}
+
+.drawer-header h2 {
+    font-size: 18px;
+    letter-spacing: 2px;
+}
+
+.drawer-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px 22px;
+}
+
+.drawer-footer {
+    padding: 18px 22px 22px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    text-align: center;
+}
+
+.drawer-footer .cart-total {
+    max-width: none;
+    margin: 0 0 8px;
+    font-size: 20px;
+    text-align: right;
+}
+
+.drawer .shopping-item {
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.item-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.add-cart-button.small {
+    flex: none;
+    padding: 8px 12px;
+}
+
+/* ---------- Próximamente ---------- */
+
+.category-card.coming-soon {
+    cursor: not-allowed;
+}
+
+.category-card.coming-soon:hover {
+    transform: none;
+    border-color: var(--border);
+}
+
+.category-card.coming-soon img {
+    filter: grayscale(1) brightness(0.5);
+}
+
+.category-card.coming-soon:hover img {
+    transform: none;
+}
+
+.coming-badge {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    z-index: 2;
+    background: var(--purple);
+    color: #101010;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    padding: 6px 12px;
+    border-radius: 20px;
+}
+
+/* ---------- Ventana de pago ---------- */
+
+.modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1500;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 30px 15px;
+    background: rgba(0, 0, 0, 0.8);
+    overflow-y: auto;
+}
+
+.modal-box {
+    position: relative;
+    width: 100%;
+    max-width: 700px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 35px 30px;
+}
+
+.modal-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+}
+
+.modal-box .section-heading {
+    margin-bottom: 25px;
+}
+
+.checkout-summary {
+    background: var(--surface-light);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 25px;
+}
+
+.checkout-summary p {
+    color: var(--muted);
+}
+
+.checkout-summary .summary-total {
+    color: var(--purple-light);
+    font-weight: bold;
+    font-size: 18px;
+    margin-top: 8px;
+}
+
+.form-title {
+    color: var(--purple-light);
+    margin: 20px 0 12px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.field.full,
+.checkbox-row.full {
+    grid-column: 1 / -1;
+}
+
+.field label {
+    color: #d7c2ed;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.field input,
+.field select {
+    background: #202020;
+    border: 1px solid #49404f;
+    color: white;
+    padding: 12px;
+    border-radius: 5px;
+    outline: none;
+}
+
+.field input:focus,
+.field select:focus {
+    border-color: var(--purple);
+}
+
+.checkbox-row {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.checkbox-row input {
+    margin-top: 4px;
+    accent-color: var(--purple);
+}
+
+.checkout-form .form-error {
+    margin-top: 14px;
+}
+
+.checkout-form .main-button {
+    width: 100%;
+    margin-top: 6px;
+}
+
+.checkout-success {
+    text-align: center;
+    padding: 20px 0;
+}
+
+.checkout-success h2 {
+    color: var(--purple-light);
+    margin-bottom: 14px;
+}
+
+.checkout-success p {
+    color: var(--muted);
+    margin-bottom: 22px;
+}
+
+/* ---------- Registro de actividad (menú lateral) ---------- */
+
+.drawer-wide {
+    width: min(720px, 100%);
+}
+
+.drawer-wide .table-container {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+}
+
+.drawer-wide .activity-table th,
+.drawer-wide .activity-table td {
+    padding: 10px 12px;
+    font-size: 14px;
+}
+
+.drawer-wide .activity-table td:first-child {
+    white-space: nowrap;
+}
+
+.drawer-wide .empty-message {
+    padding: 30px 10px;
+}
+
+#formFeedback {
+    min-height: 1.4em;
+}
+
+/* ---------- Responsive del nuevo bloque ---------- */
+
+@media (max-width: 600px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .modal-box {
+        padding: 30px 18px;
+    }
+}
