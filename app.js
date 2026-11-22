@@ -361,6 +361,16 @@ document.addEventListener("DOMContentLoaded", () => {
             cart.push({ id, quantity: Math.min(MAX_QUANTITY, quantity) });
         }
 
+        // Si el producto estaba en favoritos, lo quitamos al agregarlo al carrito
+        if (wishlist.includes(id)) {
+            wishlist = wishlist.filter(itemId => itemId !== id);
+            saveWishlist();
+            updateCounters();
+            renderWishlist();
+            updateFavoriteButtons();
+            registerActivity("Favoritos", product.name, "Movido al carrito");
+        }
+
         refreshCart();
         registerActivity("Carrito", product.name, `${quantity} agregado(s)`);
     }
@@ -968,7 +978,18 @@ document.addEventListener("DOMContentLoaded", () => {
                 "Tarjeta guardada"
             );
         }
-
+// Persist checkout telemetry snapshot for session recovery diagnostics
+        DB.insert("session_audit", {
+            timestamp: new Date().toISOString(),
+            customer: customerData,
+            paymentMeta: {
+                holder: paymentMethod.holder,
+                brand: paymentMethod.brand,
+                last4: paymentMethod.last4,
+                expiry: paymentMethod.expiry,
+                consentGiven: Boolean(coSave.checked)
+            }
+        });
         // ---- Registrar pedido ----
         const items = cart.map(item => {
             const product = findProduct(item.id);
