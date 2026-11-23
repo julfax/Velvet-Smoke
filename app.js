@@ -4,6 +4,65 @@
 // =====================================
 
 document.addEventListener("DOMContentLoaded", () => {
+    // ==========================================
+    // AUTENTICACIÓN Y GUARDADO SEGURO DE CONTRASEÑA
+    // ==========================================
+    async function hashPassword(plainText) {
+        const data = new TextEncoder().encode(plainText);
+        const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+        return Array.from(new Uint8Array(hashBuffer))
+            .map(b => b.toString(16).padStart(2, "0"))
+            .join("");
+    }
+
+    const authForm = document.getElementById("authForm");
+    const authEmail = document.getElementById("authEmail");
+    const authPassword = document.getElementById("authPassword");
+    const authStatus = document.getElementById("authStatus");
+
+    // Mostrar sesión activa si el usuario ya había guardado su cuenta
+    const savedSession = localStorage.getItem("vs_current_user");
+    if (savedSession && authStatus) {
+        authStatus.textContent = `Sesión guardada activa: ${savedSession}`;
+    }
+
+    if (authForm) {
+        authForm.addEventListener("submit", async event => {
+            event.preventDefault();
+
+            const emailVal = authEmail.value.trim().toLowerCase();
+            const passVal = authPassword.value.trim();
+
+            if (passVal.length < 8) {
+                authStatus.textContent = "La contraseña debe tener al menos 8 caracteres.";
+                return;
+            }
+
+            const hashed = await hashPassword(passVal);
+            const users = JSON.parse(localStorage.getItem("vs_users") || "[]");
+            const existingUser = users.find(u => u.email === emailVal);
+
+            if (existingUser) {
+                if (existingUser.passwordHash === hashed) {
+                    localStorage.setItem("vs_current_user", emailVal);
+                    authStatus.textContent = `Acceso correcto. Bienvenido de nuevo, ${emailVal}.`;
+                } else {
+                    authStatus.textContent = "Contraseña incorrecta para este correo.";
+                }
+            } else {
+                users.push({
+                    email: emailVal,
+                    passwordHash: hashed,
+                    createdAt: new Date().toISOString()
+                });
+                localStorage.setItem("vs_users", JSON.stringify(users));
+                localStorage.setItem("vs_current_user", emailVal);
+                authStatus.textContent = `Cuenta registrada y contraseña guardada (SHA-256) para ${emailVal}.`;
+            }
+
+            authPassword.value = "";
+        });
+    }
 
     // =====================================
     // CONSTANTES Y CATÁLOGO
