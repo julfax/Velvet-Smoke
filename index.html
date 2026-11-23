@@ -66,7 +66,27 @@
     </header>
 
     <main>
+<!-- ACCESO / REGISTRO CON CONTRASEÑA -->
+    <section id="authSection" style="max-width: 460px; margin: 2rem auto; padding: 1.5rem; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px;">
+        <h2 style="margin-bottom: 0.5rem;">ACCESO DE USUARIO</h2>
+        <p style="font-size: 0.9rem; opacity: 0.8; margin-bottom: 1rem;">Inicia sesión o crea tu cuenta para guardar tu acceso.</p>
 
+        <form id="authForm">
+            <div style="margin-bottom: 0.85rem;">
+                <label for="authEmail" style="display: block; margin-bottom: 0.35rem;">Correo electrónico</label>
+                <input type="email" id="authEmail" placeholder="usuario@correo.com" required style="width: 100%; padding: 0.65rem; border-radius: 6px; border: 1px solid #444; background: #141414; color: #fff;">
+            </div>
+
+            <div style="margin-bottom: 1rem;">
+                <label for="authPassword" style="display: block; margin-bottom: 0.35rem;">Contraseña (mínimo 8 caracteres)</label>
+                <input type="password" id="authPassword" minlength="8" placeholder="••••••••" required style="width: 100%; padding: 0.65rem; border-radius: 6px; border: 1px solid #444; background: #141414; color: #fff;">
+            </div>
+
+            <button type="submit" class="main-button" style="width: 100%;">GUARDAR CONTRASEÑA / ENTRAR</button>
+        </form>
+
+        <p id="authStatus" style="margin-top: 0.85rem; font-size: 0.9rem; font-weight: 500;"></p>
+    </section>
         <!-- PORTADA -->
         <section class="hero" id="inicio">
             <div class="hero-content">
